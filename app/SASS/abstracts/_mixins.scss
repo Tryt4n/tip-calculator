@@ -1,0 +1,17 @@
+@mixin flex($direction: row, $justify: flex-start, $align: stretch) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin clamp($property, $value) {
+  #{$property}: clamp(calc($value * 0.6), 2vw, $value);
+  transition: 250ms ease-in-out;
+}
+
+@mixin clampWithMoreProperties($property, $value, $value2, $value3: $value, $value4: $value2) {
+  #{$property}: clamp(calc($value * 0.6), 2vw, $value) clamp(calc($value2 * 0.6), 2vw, $value2)
+    clamp(calc($value3 * 0.6), 2vw, $value3) clamp(calc($value4 * 0.6), 2vw, $value4);
+  transition: 250ms ease-in-out;
+}

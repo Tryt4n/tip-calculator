@@ -1,0 +1,154 @@
+@forward "./basic/index";
+@forward "./components/index";
+
+@use "./abstracts/colors" as c;
+@use "./abstracts/variables" as v;
+@use "./abstracts/mixins" as *;
+
+@use "./basic/functions" as func;
+
+body {
+  background: c.$light-grayish-cyan;
+  width: 100vw;
+  height: 100vh;
+  @include flex(column, center, center);
+}
+
+.splitter-app {
+  @include flex(column, center, center);
+  margin: 0 auto;
+}
+
+.container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  @include clamp(gap, 2rem);
+  align-items: stretch;
+  background: c.$white;
+  @include clamp(margin-top, 10rem);
+  @include clamp(padding, 2rem);
+  @include clamp(border-radius, 2rem);
+
+  @media (width < 768px) {
+    @include flex(column);
+    margin-top: 2rem;
+  }
+
+  // DATA
+  .data {
+    @include flex(column, space-between, flex-start);
+    @include clamp(padding, 1rem);
+    @include clamp(gap, 3rem);
+  }
+
+  .bill,
+  .people,
+  .tip {
+    width: 100%;
+
+    label {
+      color: c.$dark-grayish-cyan;
+    }
+
+    &__input-wrapper {
+      @include flex(row, space-between, center);
+      background: c.$very-light-grayish-cyan;
+      @include clampWithMoreProperties(padding, 0rem, 1rem);
+      @include clamp(border-radius, 0.5rem);
+      border: v.$input-border;
+      transition: v.$main-transition;
+
+      &:hover,
+      &:focus {
+        border-color: c.$strong-cyan !important;
+      }
+    }
+  }
+
+  .tip {
+    &__wrapper {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      @include clamp(gap, 1rem);
+
+      @media (width < 768px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      textarea {
+        width: 100%;
+        padding: 0;
+        text-align: center;
+        @include clamp(padding-top, 0.25rem);
+        border: v.$input-border;
+        transition: v.$main-transition;
+
+        &:hover,
+        &:focus {
+          border-color: c.$strong-cyan !important;
+        }
+      }
+    }
+  }
+
+  // SUMMARY
+  .summary {
+    @include flex(column, space-between, stretch);
+    background: c.$very-dark-cyan;
+    @include clamp(border-radius, 1rem);
+    @include clamp(padding, 2rem);
+
+    &__wrap {
+      @include flex(column);
+      @include clamp(gap, 3rem);
+      @include clamp(padding-bottom, 2rem);
+    }
+
+    &__tip,
+    &__total {
+      @include flex(row, space-between, center);
+    }
+
+    &__title {
+      @include clamp(font-size, 1rem);
+      color: c.$white;
+    }
+
+    &__subtitle {
+      @include clamp(font-size, 0.75rem);
+      color: c.$grayish-cyan;
+    }
+
+    &__price {
+      @include clamp(font-size, 3rem);
+      color: c.$strong-cyan;
+    }
+  }
+}
+
+// UTIL
+.active {
+  border-color: c.$strong-cyan !important;
+}
+
+.incorrect {
+  border-color: hsl(0, 75%, 50%) !important;
+  position: relative;
+}
+
+.people__input-wrapper.incorrect::before {
+  position: absolute;
+  content: "Can't be zero";
+  color: hsl(0, 75%, 50%);
+  right: 0;
+  top: 0;
+  translate: 0 -100%;
+  font-size: inherit;
+
+  @media (width < 768px) {
+    font-size: 0.6rem;
+    translate: 0 -125%;
+  }
+}

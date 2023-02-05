@@ -1,0 +1,25 @@
+@use "../abstracts/colors" as c;
+@use "../abstracts/mixins" as *;
+
+input,
+textarea {
+  color: c.$grayish-cyan;
+  text-align: end;
+  border: none;
+  outline: none;
+  background: c.$very-light-grayish-cyan;
+  @include clamp(border-radius, 0.25rem);
+  color: c.$very-dark-cyan;
+  font-family: inherit;
+}
+
+textarea {
+  resize: none;
+  text-align: center;
+  width: fit-content;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: c.$grayish-cyan;
+}
